@@ -131,3 +131,7 @@ postgres:
   db: postgres
   user: postgres
   password: postgres
+
+# Allow for arbitrary other env config
+extraEnv: {}
+extraEnvFrom: []

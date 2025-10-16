@@ -67,6 +67,9 @@ spec:
                 {{- else }}
                 name: {{ (printf "%s-secret" (include "bonfire.fullname" .)) }}
                 {{- end }}
+            {{- with .Values.extraEnvFrom }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
           env:
             - name: HOSTNAME
               value: {{ (first .Values.ingress.hosts).host }}
@@ -78,6 +81,10 @@ spec:
               value: "{{ .Values.postgres.user }}"
             - name: POSTGRES_PASSWORD
               value: "{{ .Values.postgres.password }}"
+            {{- range $k, $v := .Values.extraEnv }}
+            - name: {{ $k }}
+              value: "{{ $v }}"
+            {{- end }}
       {{- with .Values.volumes }}
       volumes:
         {{- toYaml . | nindent 8 }}
