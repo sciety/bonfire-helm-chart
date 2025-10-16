@@ -5,8 +5,8 @@ replicaCount: 1
 image:
   repository: bonfirenetworks/bonfire
   pullPolicy: IfNotPresent
-  arch: null
-  version: null
+  arch: amd64
+  version: null # Uses the appVersion from Chart.yaml by default
   flavour: social
 
 
