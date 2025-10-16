@@ -3,6 +3,19 @@ entries:
   bonfire:
   - apiVersion: v2
     appVersion: 1.0.0-rc.3.6
+    created: "2025-10-16T11:40:54.546432865Z"
+    description: A Helm chart for deploying bonfire on Kubernetes
+    digest: ea81390cff42717a490234b3ac01fac00a08472d85881a05d6b316eca32883f6
+    home: https://bonfirenetworks.org/
+    name: bonfire
+    sources:
+    - https://github.com/sciety/bonfire-helm-chart/tree/main/charts/bonfire
+    type: application
+    urls:
+    - https://github.com/sciety/bonfire-helm-chart/releases/download/bonfire-0.1.1/bonfire-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 1.0.0-rc.3.6
     created: "2025-10-16T10:46:11.676559003Z"
     description: A Helm chart for Deploying bonfire on Kubernetes
     digest: d25f57bbb62a006a26f48eeea934c09ae0350e3c985ac15e54b3f7395522ddad
@@ -11,4 +24,4 @@ entries:
     urls:
     - https://github.com/sciety/bonfire-helm-chart/releases/download/bonfire-0.1.0/bonfire-0.1.0.tgz
     version: 0.1.0
-generated: "2025-10-16T10:46:11.676567098Z"
+generated: "2025-10-16T11:40:54.546441251Z"
