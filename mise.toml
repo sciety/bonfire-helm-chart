@@ -10,6 +10,9 @@ KIND_VERSION = "v1.33.4"
 BONFIRE_CHART_NAME = "bonfire-test"
 POSTGRES_CHART_NAME = "bonfire-database"
 
+[tasks.lint]
+run = "helm lint charts/bonfire"
+
 [tasks.test]
 depends = ['deploy-chart']
 run = '''
