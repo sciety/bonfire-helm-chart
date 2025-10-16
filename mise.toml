@@ -26,7 +26,7 @@ depends = ['ensure-kind-cluster', 'deploy-latest-bitnami-postgres']
 run = '''
 helm upgrade --install --wait \
     $BONFIRE_CHART_NAME charts/bonfire \
-    --set image.flavour="open_science" --set image.arch="aarch64" \
+    --set image.flavour="open_science" --set image.arch="amd64" \
     --set postgres.host="$POSTGRES_CHART_NAME-postgresql.default.svc.cluster.local" \
     --set "ingress.enabled=true" \
     --set postgres.password="$(kubectl get secrets $POSTGRES_CHART_NAME-postgresql -o yaml | yq '.data["postgres-password"]' | base64 -d)"
