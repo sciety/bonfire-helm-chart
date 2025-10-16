@@ -1,6 +1,8 @@
 apiVersion: v2
 name: bonfire
-description: A Helm chart for Deploying bonfire on Kubernetes
+description: A Helm chart for deploying bonfire on Kubernetes
+home: https://bonfirenetworks.org/
+sources: ["https://github.com/sciety/bonfire-helm-chart/tree/main/charts/bonfire"]
 type: application
-version: 0.1.0
+version: 0.1.1
 appVersion: "1.0.0-rc.3.6"
