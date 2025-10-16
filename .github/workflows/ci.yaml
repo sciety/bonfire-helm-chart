@@ -1,10 +1,7 @@
-name: e2e
+name: CI
 
 on:
-  workflow_dispatch:
   push:
-    branches-ignore:
-    - master
     tags-ignore: [ '*' ]
 
 jobs:
