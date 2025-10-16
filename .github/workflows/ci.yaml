@@ -24,3 +24,16 @@ jobs:
         uses: jdx/mise-action@v3
       - name: Deploy and test helm chart
         run: mise test
+      - name: Debug failure summaries
+        if: failure()
+        run: |
+          echo "Helm list"
+          helm list -A
+          echo ""
+          echo ""
+          echo "kubectl get all pods"
+          kubectl get pods -A -o wide
+      - name: Debug describe pods
+        if: failure()
+        run: |
+          kubectl describe pods -A
