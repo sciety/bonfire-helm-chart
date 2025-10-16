@@ -4,7 +4,7 @@ on:
   push:
 
 jobs:
-  run-on-kubernetes:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -20,6 +20,20 @@ jobs:
         uses: jdx/mise-action@v3
       - name: Lint helm chart
         run: mise lint
+  run-on-kubernetes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
+      # Seemingly something mise installs breaks post-checkout.
+      # this runs a post-task after post-mise (for caching) but before post-checkout
+      - name: Clean up Mise
+        uses: gacts/run-and-post-run@v1
+        with:
+          run: echo "Nothing"
+          post: mise implode -y
+      - name: Install tools
+        uses: jdx/mise-action@v3
       - name: Deploy and test helm chart
         run: mise test
       - name: Debug failure summaries
