@@ -70,6 +70,14 @@ spec:
           env:
             - name: HOSTNAME
               value: {{ (first .Values.ingress.hosts).host }}
+            - name: POSTGRES_HOST
+              value: "{{ .Values.postgres.host }}"
+            - name: POSTGRES_DB
+              value: "{{ .Values.postgres.db }}"
+            - name: POSTGRES_USER
+              value: "{{ .Values.postgres.user }}"
+            - name: POSTGRES_PASSWORD
+              value: "{{ .Values.postgres.password }}"
       {{- with .Values.volumes }}
       volumes:
         {{- toYaml . | nindent 8 }}

@@ -124,3 +124,10 @@ affinity: {}
 # Or you can set secret.existingSecret to the name of an existing secret with at least 3 values for SECRET_KEY_BASE, SIGNING_SALT, ENCRYPTION_SALT
 secrets:
   existingAppSecret: null
+
+## Inject as environment variables the config for postgres
+postgres:
+  host: null
+  db: postgres
+  user: postgres
+  password: postgres
