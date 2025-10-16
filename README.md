@@ -68,3 +68,19 @@ helm upgrade --install \
   \
   --set extraEnvFrom[0].secretRef.name="env-vars-with-secrets"
 ```
+
+## Testing
+
+You can create a local cluster in docker using kind, and test a deployment of this chart.
+
+Firstly, you need to have:
+
+- a checkout of this repo
+- docker running and setup
+- [`mise`](https://mise.jdx.dev/installing-mise.html) installed. Make sure to run `mise install` to install all the needed tools
+
+Then you can run `mise test` to deploy a kind cluster, ingress-nginx, postgres database and then this helm chart.
+
+Make sure you run `mise clean` to tear it all down again.
+
+Github runs this same routine on every branch push.
