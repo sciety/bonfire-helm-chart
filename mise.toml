@@ -1,0 +1,46 @@
+[tools]
+helm = "latest"
+kind = "latest"
+kubectl = "1.33"
+yq = "latest"
+
+[env]
+CLUSTER_NAME = "bonfire-test"
+KIND_VERSION = "v1.33.4"
+BONFIRE_CHART_NAME = "bonfire-test"
+POSTGRES_CHART_NAME = "bonfire-database"
+
+[tasks.test]
+depends = ['deploy-chart']
+run = '''
+helm test $BONFIRE_CHART_NAME
+'''
+
+[tasks.clean]
+run = '''
+kind delete cluster --name "$CLUSTER_NAME"
+'''
+
+[tasks.deploy-chart]
+depends = ['ensure-kind-cluster', 'deploy-latest-bitnami-postgres']
+run = '''
+helm upgrade --install --wait \
+    $BONFIRE_CHART_NAME charts/bonfire \
+    --set image.flavour="open_science" --set image.arch="aarch64" \
+    --set postgres.host="$POSTGRES_CHART_NAME-postgresql.default.svc.cluster.local" \
+    --set "ingress.enabled=true" \
+    --set postgres.password="$(kubectl get secrets $POSTGRES_CHART_NAME-postgresql -o yaml | yq '.data["postgres-password"]' | base64 -d)"
+
+'''
+
+[tasks.deploy-latest-bitnami-postgres]
+depends = ['ensure-kind-cluster']
+run = 'helm upgrade --install --wait $POSTGRES_CHART_NAME oci://registry-1.docker.io/bitnamicharts/postgresql'
+
+
+[tasks.ensure-kind-cluster]
+run = '''
+(kind get clusters | grep "$CLUSTER_NAME" > /dev/null) || kind create cluster --config kind_cluster_config.yaml --name "$CLUSTER_NAME" --image "kindest/node:$KIND_VERSION"
+# install ingress
+(kubectl get -n ingress-nginx pod --selector=app.kubernetes.io/component=controller -o json | jq -e '.items | length > 0') || kubectl apply --wait -f https://kind.sigs.k8s.io/examples/ingress/deploy-ingress-nginx.yaml
+'''
